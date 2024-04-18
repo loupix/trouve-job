@@ -1,0 +1,69 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Connexion / Inscription{% endblock %}
+
+{% block body %}
+  <div class="container-fluid">
+    <h2>Connexion / Inscription</h2>
+    <hr />
+    <div class="row">
+      <div class="col-md-6">
+        {{ form_start(registrationForm, {'action': path('register')}) }}
+          <div class="form-group">
+            <div class="form-row">
+              <div class="col">
+                {{ form_widget(registrationForm.Nom) }}
+                <div class="invalid-feedback d-block">
+                {{ form_errors(registrationForm.Nom) }}
+                </div>
+              </div>
+              <div class="col">
+                {{ form_widget(registrationForm.Prenom) }}
+                <div class="invalid-feedback d-block">
+                {{ form_errors(registrationForm.Prenom) }}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            {{ form_widget(registrationForm.Email) }}
+            <div class="invalid-feedback d-block">
+            {{ form_errors(registrationForm.Email) }}
+            </div>
+          </div>
+          <div class="form-group">
+            {{ form_widget(registrationForm.plainPassword) }}
+            <div class="invalid-feedback d-block">
+            {{ form_errors(registrationForm.plainPassword) }}
+            </div>
+          </div>
+          <div class="d-flex justify-content-center">
+            <div class="form-check">
+              {{ form_widget(registrationForm.agreeTerms) }}
+              {{ form_label(registrationForm.agreeTerms, "J'accepte les conditions d'utilisation") }}
+            </div>
+          </div>
+          <div class="invalid-feedback d-block">
+          {{ form_errors(registrationForm.agreeTerms) }}
+          </div>
+          {{ form_rest(registrationForm) }}
+          <button type="submit" class="btn btn-primary btn-block">Register</button>
+        {{ form_end(registrationForm) }}
+      </div>
+
+      <div class="col-md-6">
+        <form action="{{ path('login') }}" method="post" id="login_form">
+          <div class="form-group">
+            <input type="text" class="form-control" id="registered_visitor_username" name="registered_visitor_username"/>
+          </div>
+          <div class="form-group">
+            <input type="password" class="form-control" id="registered_visitor_password" name="registered_visitor_password" />
+          </div>
+          <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}" >
+          <button type="submit" class="btn btn-primary btn-block">login</button>
+        </form>
+      </div>
+    </div>
+
+  </div>
+{% endblock %}

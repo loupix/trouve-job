@@ -3,26 +3,73 @@ security:
     enable_authenticator_manager: true
     # https://symfony.com/doc/current/security.html#c-hashing-passwords
     password_hashers:
-        Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'
+        Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface:
+            algorithm: auto
+            cost:      15
+        App\Entity\User\User:
+            algorithm: auto
+
+
+
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
-        users_in_memory: { memory: null }
+        # used to reload user from session & other features (e.g. switch_user)
+        chain_provider:
+            chain:
+                providers: [app_visitor_provider, app_registered_provider]
+        users_in_memory:
+            memory:
+                users:
+                    loic_admin: {password: 'lolo', roles: 'ROLE_ADMIN'}
+                    loic_user: {password: 'lolo', roles: 'ROLE_USER'}
+        app_visitor_provider:
+            entity:
+                class: App\Entity\User\Visitor
+                property: uuid
+        app_registered_provider:
+            entity:
+                class: App\Entity\User\Registered
+                property: Email
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
+            # anonymous: ~
             lazy: true
-            provider: users_in_memory
+            provider: chain_provider
+            logout:
+                path: logout
+            form_login:
+                login_path: login
+                check_path: login
+                username_parameter: registered_visitor_username
+                password_parameter: registered_visitor_password
+                use_referer: true
 
-            # activate different ways to authenticate
-            # https://symfony.com/doc/current/security.html#firewalls-authentication
 
-            # https://symfony.com/doc/current/security/impersonating_user.html
-            # switch_user: true
+            login_throttling:
+                max_attempts: 3
+                interval: '15 minutes'
+
+        secured_area:
+            lazy: true
+            provider: chain_provider
+            form_login:
+                enable_csrf: true
+                use_referer: true
+        
 
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
+        - { path: ^/loading, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/logout, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/profile, roles: ROLE_REGISTER }
+        - { path: ^/, roles: ROLE_USER }
+
+    role_hierarchy:
+        ROLE_VISITOR: ROLE_USER
+        ROLE_REGISTER: ROLE_USER
+

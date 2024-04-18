@@ -1,0 +1,54 @@
+    <head>
+        <meta charset="UTF-8">
+        <base href="/">
+        <meta name="author" content="loic.daniel" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        {% block stylesheets %}
+            <!-- Fonts -->
+            <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,600,700,800" rel="stylesheet">
+
+            <!-- Nucleo Icons -->
+            <link rel="stylesheet" type="text/css" href="{{ asset('css/nucleo-icons.css') }}">
+            <link rel="stylesheet" type="text/css" href="{{ asset('css/nucleo-svg.css') }}">
+
+            <!-- Icons -->
+            <link rel="stylesheet" type="text/css" href="{{ asset('components/argon-design-system-free/assets/vendor/nucleo/css/nucleo.css') }}">
+            <link rel="stylesheet" type="text/css" href="{{ asset('components/font-awesome/css/all.css') }}">
+
+            <!-- Theme CSS -->
+            <link rel="stylesheet" type="text/css" href="{{ asset('components/bootstrap/dist/css/bootstrap.min.css') }}">
+            <link rel="stylesheet" type="text/css" href="{{ asset('components/argon-design-system-free/assets/css/argon.min.css') }}">
+            <link rel="stylesheet" type="text/css" href="{{ asset('components/angular-material/angular-material.min.css') }}">
+
+            <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}">
+            <link rel="stylesheet" type="text/css" href="{{ asset('css/sidebar-main.css') }}">
+            <link rel="stylesheet" type="text/css" href="{{ asset('css/sidebar-themes.css') }}">
+            <link rel="stylesheet" type="text/css" href="{{ asset('css/sidebar.css') }}">
+        {% endblock %}
+
+        {% block javascripts %}
+{#             <script type="text/javascript" src="{{ asset('components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('components/font-awesome/js/all.js') }}"></script>
+ #}
+            <!-- Core -->
+            <script type="text/javascript" src="{{ asset('components/argon-design-system-free/assets/vendor/jquery/jquery.min.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('components/argon-design-system-free/assets/vendor/popper/popper.min.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('components/argon-design-system-free/assets/vendor/bootstrap/bootstrap.min.js') }}"></script>
+
+
+            <!-- Theme JS -->
+            <script type="text/javascript" src="{{ asset('components/argon-design-system-free/assets/js/argon.min.js') }}"></script>
+
+            <script type="text/javascript" src="{{ asset('components/angular/angular.min.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('components/angular-animate/angular-animate.min.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('components/angular-messages/angular-messages.min.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('components/angular-aria/angular-aria.min.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('components/angular-route/angular-route.min.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('components/angular-material/angular-material.min.js') }}"></script>
+
+            <script type="text/javascript" src="{{ asset('js/appConfig.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('js/indexController.js') }}"></script>
+        {% endblock %}
+    </head>
